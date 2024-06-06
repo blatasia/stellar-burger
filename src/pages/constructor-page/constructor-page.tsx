@@ -1,16 +1,16 @@
-import { useSelector } from '../../services/store';
+import { useSelector } from 'react-redux';
 
 import styles from './constructor-page.module.css';
 
-import { BurgerIngredients } from '../../components';
-import { BurgerConstructor } from '../../components';
+import { BurgerIngredients, BurgerConstructor } from '../../components';
 import { Preloader } from '../../components/ui';
 import { FC } from 'react';
+import { selectIngredientsStatus } from '../../services/slices/ingredientsSlice';
 
 export const ConstructorPage: FC = () => {
-  const isIngredientsLoading = useSelector(
-    (state) => state.ingredients.isLoading
-  );
+  const ingredientsStatus = useSelector(selectIngredientsStatus);
+
+  const isIngredientsLoading = ingredientsStatus === 'loading';
 
   return (
     <>
