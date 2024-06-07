@@ -1,42 +1,49 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
+import { getOrderByNumberApi } from '@api';
+import { useParams } from 'react-router-dom';
+import { TOrder } from '@utils-types';
 import { useSelector } from '../../services/store';
 import { selectIngredients } from '../../services/slices/ingredientsSlice';
-import { selectOrderBurger } from '../../services/slices/orderBurgerSlice';
 
 export const OrderInfo: FC = () => {
-  const orderData = useSelector(selectOrderBurger);
+  const { number } = useParams<{ number: string }>();
+  const [orderData, setOrderData] = useState<TOrder | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const ingredients = useSelector(selectIngredients);
 
-  console.log('Ingredients:', ingredients);
-  console.log('Order Data:', orderData);
+  useEffect(() => {
+    const fetchOrderData = async () => {
+      try {
+        const response = await getOrderByNumberApi(Number(number));
+        setOrderData(response.orders[0]);
+      } catch (error) {
+        console.error('err in fetchOrderData order-info', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  /* Готовим данные для отображения */
+    fetchOrderData();
+  }, [number]);
+
   const orderInfo = useMemo(() => {
-    if (!orderData || !ingredients.length) return null;
+    if (!orderData) return null;
 
     const date = new Date(orderData.createdAt);
 
-    type TIngredientsWithCount = {
-      [key: string]: TIngredient & { count: number };
-    };
-
     const ingredientsInfo = orderData.ingredients.reduce(
-      (acc: TIngredientsWithCount, item) => {
+      (acc: { [key: string]: TIngredient & { count: number } }, item) => {
         if (!acc[item]) {
           const ingredient = ingredients.find((ing) => ing._id === item);
           if (ingredient) {
-            acc[item] = {
-              ...ingredient,
-              count: 1
-            };
+            acc[item] = { ...ingredient, count: 1 };
           }
         } else {
           acc[item].count++;
         }
-
         return acc;
       },
       {}
@@ -47,15 +54,10 @@ export const OrderInfo: FC = () => {
       0
     );
 
-    return {
-      ...orderData,
-      ingredientsInfo,
-      date,
-      total
-    };
-  }, [orderData, ingredients]);
+    return { ...orderData, ingredientsInfo, date, total };
+  }, [orderData]);
 
-  if (!orderInfo) {
+  if (loading || !orderInfo) {
     return <Preloader />;
   }
 

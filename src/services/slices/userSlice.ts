@@ -25,7 +25,6 @@ const initialState: TUserState = {
   error: null
 };
 
-// Thunks
 export const getUser = createAsyncThunk('user/getUser', getUserApi);
 export const register = createAsyncThunk('user/register', registerUserApi);
 export const updateUser = createAsyncThunk('user/update', updateUserApi);

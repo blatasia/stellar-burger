@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/store';
 
 import styles from './constructor-page.module.css';
 
