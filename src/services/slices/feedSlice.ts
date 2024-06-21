@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 import { RootState } from '../store';
 
-interface TFeedState {
+export interface TFeedState {
   orders: TOrder[];
   total: number;
   totalToday: number;

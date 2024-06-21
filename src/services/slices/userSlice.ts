@@ -11,16 +11,19 @@ import { setCookie, deleteCookie } from '../../utils/cookie';
 import { TLoginData } from '@api';
 import { RootState } from '../store';
 
-type TUserState = {
+export type TUserState = {
   isAuth: boolean;
-  user: TUser | null;
+  user: TUser;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 };
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   isAuth: false,
-  user: null,
+  user: {
+    name: '',
+    email: ''
+  },
   status: 'idle',
   error: null
 };

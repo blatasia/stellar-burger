@@ -3,7 +3,7 @@ import { getIngredientsApi } from '@api';
 import { TIngredient } from '@utils-types';
 import { RootState } from '../store';
 
-interface TIngredientsState {
+export interface TIngredientsState {
   items: TIngredient[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;

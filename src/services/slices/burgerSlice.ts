@@ -4,7 +4,7 @@ import { orderBurgerApi } from '@api';
 import { nanoid } from 'nanoid';
 import { RootState } from '../store';
 
-interface TBurgerState {
+export interface TBurgerState {
   loading: boolean;
   constructorItems: {
     bun: TConstructorIngredient | null;

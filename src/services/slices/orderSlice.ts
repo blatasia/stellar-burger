@@ -3,7 +3,7 @@ import { getOrderByNumberApi, getOrdersApi } from '@api';
 import { TOrder } from '@utils-types';
 import { RootState } from '../store';
 
-interface OrdersState {
+export interface OrdersState {
   orders: TOrder[];
   order: TOrder | null;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
