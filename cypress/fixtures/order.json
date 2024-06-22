@@ -1,0 +1,30 @@
+{
+  "success": true,
+  "order": {
+    "number": 12345,
+    "ingredients": [
+      {
+        "_id": "60d3b41abdacab0026a733c6",
+        "name": "Краторная булка N-200i",
+        "type": "bun",
+        "price": 1255
+      },
+      {
+        "_id": "60d3b41abdacab0026a733c7",
+        "name": "Биокотлета из марсианской Магнолии",
+        "type": "main",
+        "price": 424
+      },
+      {
+        "_id": "60d3b41abdacab0026a733c8",
+        "name": "Соус Spicy-X",
+        "type": "sauce",
+        "price": 90
+      }
+    ],
+    "status": "done",
+    "name": "Space burger",
+    "createdAt": "2021-06-22T16:20:01.123Z",
+    "updatedAt": "2021-06-22T16:20:01.123Z"
+  }
+}
