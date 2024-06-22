@@ -5,10 +5,11 @@ import burgerReducer, {
   moveItemUp,
   moveItemDown,
   orderBurger,
-  TBurgerState
-} from '../src/services/slices/burgerSlice'
+  TBurgerState,
+  initialState
+} from '../burgerSlice'
 
-import { TConstructorIngredient } from '../src/utils/types';
+import { TConstructorIngredient } from '../../../utils/types';
 import { describe, expect, test } from '@jest/globals';
 
 const bunMockData: TConstructorIngredient = {
@@ -57,17 +58,6 @@ const anotherIngredientMockData: TConstructorIngredient = {
 };
 
 describe('burgerSlice', () => {
-  const initialState: TBurgerState = {
-    loading: false,
-    constructorItems: {
-      bun: null,
-      ingredients: []
-    },
-    orderRequest: false,
-    orderModalData: null,
-    error: null
-  };
-
   it('should handle initial state', () => {
     expect(burgerReducer(undefined, { type: 'unknown' })).toEqual(initialState);
   });

@@ -15,7 +15,7 @@ export interface TBurgerState {
   error: string | null;
 }
 
-const initialState: TBurgerState = {
+export const initialState: TBurgerState = {
   loading: false,
   constructorItems: {
     bun: null,

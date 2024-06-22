@@ -2,10 +2,11 @@ import ingredientsReducer, {
   fetchIngredients,
   selectIngredients,
   selectIngredientsStatus,
-  TIngredientsState
-} from '../src/services/slices/ingredientsSlice';
-import { TIngredient } from '../src/utils/types';
-import { RootState } from '../src/services/store';
+  TIngredientsState,
+  initialState
+} from '../ingredientsSlice';
+import { TIngredient } from '../../../utils/types';
+import { RootState } from '../../store';
 
 const ingredientsMockData: TIngredient[] = [
   {
@@ -19,7 +20,7 @@ const ingredientsMockData: TIngredient[] = [
     price: 50,
     image: 'image1.png',
     image_mobile: 'image1_mobile.png',
-    image_large: 'image1_large.png',
+    image_large: 'image1_large.png'
   },
   {
     _id: '2',
@@ -32,19 +33,15 @@ const ingredientsMockData: TIngredient[] = [
     price: 55,
     image: 'image2.png',
     image_mobile: 'image2_mobile.png',
-    image_large: 'image2_large.png',
+    image_large: 'image2_large.png'
   }
 ];
 
-const initialState: TIngredientsState = {
-  items: [],
-  status: 'idle',
-  error: null
-};
-
 describe('ingredientsSlice', () => {
   it('should handle initial state', () => {
-    expect(ingredientsReducer(undefined, { type: 'unknown' })).toEqual(initialState);
+    expect(ingredientsReducer(undefined, { type: 'unknown' })).toEqual(
+      initialState
+    );
   });
 
   it('should handle fetchIngredients.pending', () => {
@@ -75,12 +72,18 @@ describe('ingredientsSlice', () => {
   });
 
   it('selectIngredients should return ingredients', () => {
-    const rootState = { ingredients: { ...initialState, items: ingredientsMockData } };
-    expect(selectIngredients(rootState as RootState)).toEqual(ingredientsMockData);
+    const rootState = {
+      ingredients: { ...initialState, items: ingredientsMockData }
+    };
+    expect(selectIngredients(rootState as RootState)).toEqual(
+      ingredientsMockData
+    );
   });
 
   it('selectIngredientsStatus should return status', () => {
     const rootState = { ingredients: initialState };
-    expect(selectIngredientsStatus(rootState as RootState)).toEqual(initialState.status);
+    expect(selectIngredientsStatus(rootState as RootState)).toEqual(
+      initialState.status
+    );
   });
 });

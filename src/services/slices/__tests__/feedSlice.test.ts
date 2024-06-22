@@ -2,10 +2,11 @@ import feedReducer, {
   fetchFeedOrders,
   selectFeedOrder,
   selectFeedState,
-  TFeedState
-} from '../src/services/slices/feedSlice';
-import { TOrder } from '../src/utils/types';
-import { RootState } from '../src/services/store';
+  TFeedState,
+  initialState
+} from '../feedSlice';
+import { TOrder } from '../../../utils/types';
+import { RootState } from '../../store';
 
 const ordersMockData: TOrder[] = [
   {
@@ -24,17 +25,9 @@ const ordersMockData: TOrder[] = [
     number: 2,
     createdAt: '2023-01-01',
     updatedAt: '2023-01-02',
-    ingredients: ['ingredient3', 'ingredient4'],
+    ingredients: ['ingredient3', 'ingredient4']
   }
 ];
-
-const initialState: TFeedState = {
-  orders: [],
-  total: 0,
-  totalToday: 0,
-  requestStatus: 'idle',
-  error: null
-};
 
 describe('feedSlice', () => {
   it('should handle initial state', () => {

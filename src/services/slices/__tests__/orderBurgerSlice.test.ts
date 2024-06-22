@@ -1,23 +1,14 @@
 import orderBurgerReducer, {
   placeOrder,
   resetOrder,
-  TOrderBurgerState,
   selectOrderBurger,
   selectOrderBurgerStatus,
   selectOrderBurgerError,
-  selectOrderBurgerName
-} from '../src/services/slices/orderBurgerSlice';
-import {TOrder} from '../src/utils/types';
-import { RootState } from '../src/services/store';
-import { configureStore } from '@reduxjs/toolkit';
-import { thunk } from 'redux-thunk';
-
-const initialState: TOrderBurgerState = {
-  order: null,
-  requestStatus: 'idle',
-  error: null,
-  name: ''
-};
+  selectOrderBurgerName,
+  initialState
+} from '../orderBurgerSlice';
+import { TOrder } from '../../../utils/types';
+import { RootState } from '../../store';
 
 const orderMockData: TOrder = {
   _id: '1',
@@ -36,7 +27,9 @@ const responseMock = {
 
 describe('orderBurgerSlice', () => {
   it('should handle initial state', () => {
-    expect(orderBurgerReducer(undefined, { type: 'unknown' })).toEqual(initialState);
+    expect(orderBurgerReducer(undefined, { type: 'unknown' })).toEqual(
+      initialState
+    );
   });
 
   it('should handle placeOrder.pending', () => {
@@ -82,22 +75,32 @@ describe('orderBurgerSlice', () => {
   });
 
   it('selectOrderBurger should return order', () => {
-    const rootState = { orderBurger: { ...initialState, order: orderMockData } };
+    const rootState = {
+      orderBurger: { ...initialState, order: orderMockData }
+    };
     expect(selectOrderBurger(rootState as RootState)).toEqual(orderMockData);
   });
 
   it('selectOrderBurgerStatus should return status', () => {
     const rootState = { orderBurger: initialState };
-    expect(selectOrderBurgerStatus(rootState as RootState)).toEqual(initialState.requestStatus);
+    expect(selectOrderBurgerStatus(rootState as RootState)).toEqual(
+      initialState.requestStatus
+    );
   });
 
   it('selectOrderBurgerError should return error', () => {
     const rootState = { orderBurger: { ...initialState, error: 'Some error' } };
-    expect(selectOrderBurgerError(rootState as RootState)).toEqual('Some error');
+    expect(selectOrderBurgerError(rootState as RootState)).toEqual(
+      'Some error'
+    );
   });
 
   it('selectOrderBurgerName should return name', () => {
-    const rootState = { orderBurger: { ...initialState, name: 'Test Order Name' } };
-    expect(selectOrderBurgerName(rootState as RootState)).toEqual('Test Order Name');
+    const rootState = {
+      orderBurger: { ...initialState, name: 'Test Order Name' }
+    };
+    expect(selectOrderBurgerName(rootState as RootState)).toEqual(
+      'Test Order Name'
+    );
   });
 });

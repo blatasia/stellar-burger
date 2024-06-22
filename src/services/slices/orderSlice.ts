@@ -10,7 +10,7 @@ export interface OrdersState {
   error: string | null;
 }
 
-const initialState: OrdersState = {
+export const initialState: OrdersState = {
   orders: [],
   order: null,
   status: 'idle',

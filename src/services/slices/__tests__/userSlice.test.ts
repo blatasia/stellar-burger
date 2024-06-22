@@ -5,9 +5,9 @@ import {
   logout,
   getUser,
   updateUser
-} from '../src/services/slices/userSlice';
-import userReducer from '../src/services/slices/userSlice';
-import { TUser } from '../src/utils/types';
+} from '../userSlice';
+import userReducer from '../userSlice';
+import { TUser } from '../../../utils/types';
 import { Action } from '@reduxjs/toolkit';
 
 describe('User slice', () => {
@@ -28,7 +28,10 @@ describe('User slice', () => {
   });
 
   test('should handle register.fulfilled', () => {
-    const action = { type: register.fulfilled.type, payload: { user: mockUser } };
+    const action = {
+      type: register.fulfilled.type,
+      payload: { user: mockUser }
+    };
     const state = userReducer(initialState, action);
     expect(state.isAuth).toBe(true);
     expect(state.user).toMatchObject(mockUser);
@@ -36,7 +39,10 @@ describe('User slice', () => {
   });
 
   test('should handle register.rejected', () => {
-    const action = { type: register.rejected.type, error: { message: 'Ошибка регистрации' } };
+    const action = {
+      type: register.rejected.type,
+      error: { message: 'Ошибка регистрации' }
+    };
     const state = userReducer(initialState, action);
     expect(state.status).toBe('failed');
     expect(state.error).toBe('Ошибка регистрации');
@@ -57,18 +63,20 @@ describe('User slice', () => {
   });
 
   test('should handle login.rejected', () => {
-    const action = { type: login.rejected.type, error: { message: 'Ошибка авторизации' } };
+    const action = {
+      type: login.rejected.type,
+      error: { message: 'Ошибка авторизации' }
+    };
     const state = userReducer(initialState, action);
     expect(state.status).toBe('failed');
     expect(state.error).toBe('Ошибка авторизации');
   });
 
-
   test('should handle logout.fulfilled', () => {
     const initialStateWithUser = {
       ...initialState,
       isAuth: true,
-      user: mockUser,
+      user: mockUser
     };
     const action = { type: logout.fulfilled.type };
     const state = userReducer(initialStateWithUser, action);
@@ -84,14 +92,20 @@ describe('User slice', () => {
   });
 
   test('should handle getUser.fulfilled', () => {
-    const action = { type: getUser.fulfilled.type, payload: { user: mockUser } };
+    const action = {
+      type: getUser.fulfilled.type,
+      payload: { user: mockUser }
+    };
     const state = userReducer(initialState, action);
     expect(state.isAuth).toBe(true);
     expect(state.user).toMatchObject(mockUser);
   });
 
   test('should handle getUser.rejected', () => {
-    const action = { type: getUser.rejected.type, error: { message: 'Ошибка получения пользователя' } };
+    const action = {
+      type: getUser.rejected.type,
+      error: { message: 'Ошибка получения пользователя' }
+    };
     const state = userReducer(initialState, action);
     expect(state.status).toBe('failed');
     expect(state.error).toBe('Ошибка получения пользователя');
@@ -108,9 +122,12 @@ describe('User slice', () => {
     const initialStateWithUser = {
       ...initialState,
       isAuth: true,
-      user: mockUser,
+      user: mockUser
     };
-    const action = { type: updateUser.fulfilled.type, payload: { user: mockUser } };
+    const action = {
+      type: updateUser.fulfilled.type,
+      payload: { user: mockUser }
+    };
     const state = userReducer(initialStateWithUser, action);
     expect(state.isAuth).toBe(true);
     expect(state.user).toMatchObject(mockUser);
@@ -118,7 +135,10 @@ describe('User slice', () => {
   });
 
   test('should handle updateUser.rejected', () => {
-    const action = { type: updateUser.rejected.type, error: { message: 'Ошибка обновления пользователя' } };
+    const action = {
+      type: updateUser.rejected.type,
+      error: { message: 'Ошибка обновления пользователя' }
+    };
     const state = userReducer(initialState, action);
     expect(state.status).toBe('failed');
     expect(state.error).toBe('Ошибка обновления пользователя');

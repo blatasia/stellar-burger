@@ -1,22 +1,15 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 import ordersReducer, {
   fetchOrderById,
   fetchOrders,
   OrdersState,
   selectOrders,
   selectOrdersError,
-  selectOrdersStatus
-} from '../src/services/slices/orderSlice';
-import {TOrder} from '../src/utils/types';
-import { RootState } from "../src/services/store";
-
-
-const initialState: OrdersState = {
-  orders: [],
-  order: null,
-  status: 'idle',
-  error: null
-};
+  selectOrdersStatus,
+  initialState
+} from '../orderSlice';
+import { TOrder } from '../../../utils/types';
+import { RootState } from '../../store';
 
 const ordersMockData: TOrder[] = [
   {
@@ -40,13 +33,7 @@ const ordersMockData: TOrder[] = [
 ];
 
 const orderMockData: TOrder = {
-  _id: '1',
-  status: 'done',
-  number: 12345,
-  name: 'Order 1',
-  createdAt: '2021-01-01T00:00:00.000Z',
-  updatedAt: '2021-01-01T00:00:00.000Z',
-  ingredients: ['ingredient1', 'ingredient2']
+  ...ordersMockData[0]
 };
 
 describe('ordersSlice', () => {
@@ -61,14 +48,20 @@ describe('ordersSlice', () => {
   });
 
   it('should handle fetchOrders.fulfilled', () => {
-    const action = { type: fetchOrders.fulfilled.type, payload: ordersMockData };
+    const action = {
+      type: fetchOrders.fulfilled.type,
+      payload: ordersMockData
+    };
     const state = ordersReducer(initialState, action);
     expect(state.status).toBe('succeeded');
     expect(state.orders).toEqual(ordersMockData);
   });
 
   it('should handle fetchOrders.rejected', () => {
-    const action = { type: fetchOrders.rejected.type, error: { message: 'Failed to fetch orders' } };
+    const action = {
+      type: fetchOrders.rejected.type,
+      error: { message: 'Failed to fetch orders' }
+    };
     const state = ordersReducer(initialState, action);
     expect(state.status).toBe('failed');
     expect(state.error).toBe('Failed to fetch orders');
@@ -81,14 +74,20 @@ describe('ordersSlice', () => {
   });
 
   it('should handle fetchOrderById.fulfilled', () => {
-    const action = { type: fetchOrderById.fulfilled.type, payload: orderMockData };
+    const action = {
+      type: fetchOrderById.fulfilled.type,
+      payload: orderMockData
+    };
     const state = ordersReducer(initialState, action);
     expect(state.status).toBe('succeeded');
     expect(state.order).toEqual(orderMockData);
   });
 
   it('should handle fetchOrderById.rejected', () => {
-    const action = { type: fetchOrderById.rejected.type, error: { message: 'Failed to fetchOrderById orders' } };
+    const action = {
+      type: fetchOrderById.rejected.type,
+      error: { message: 'Failed to fetchOrderById orders' }
+    };
     const state = ordersReducer(initialState, action);
     expect(state.status).toBe('failed');
     expect(state.error).toBe('Failed to fetchOrderById orders');
@@ -101,7 +100,9 @@ describe('ordersSlice', () => {
 
   it('selectOrdersStatus should return status', () => {
     const rootState = { orders: initialState };
-    expect(selectOrdersStatus(rootState as RootState)).toEqual(initialState.status);
+    expect(selectOrdersStatus(rootState as RootState)).toEqual(
+      initialState.status
+    );
   });
 
   it('selectOrdersError should return error', () => {

@@ -1,44 +1,44 @@
-import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "../src/services/rootReducer";
+import { configureStore } from '@reduxjs/toolkit';
+import rootReducer from '../../rootReducer';
 
 describe('rootReducer', () => {
   it('должны отображаться корректные данные дефолтного состояния', () => {
-    const store = configureStore ({reducer: rootReducer});
+    const store = configureStore({ reducer: rootReducer });
     const initialState = store.getState();
 
     expect(initialState).toEqual({
       ingredients: {
         items: [],
         status: 'idle',
-        error: null,
+        error: null
       },
       orders: {
         orders: [],
         order: null,
         status: 'idle',
-        error: null,
+        error: null
       },
       user: {
         user: {
-          email:'',
-          name:''
+          email: '',
+          name: ''
         },
         isAuth: false,
         status: 'idle',
-        error: null,
+        error: null
       },
       feed: {
         orders: [],
         total: 0,
         totalToday: 0,
         requestStatus: 'idle',
-        error: null,
+        error: null
       },
       orderBurger: {
         order: null,
         name: '',
         requestStatus: 'idle',
-        error: null,
+        error: null
       },
       burger: {
         constructorItems: {

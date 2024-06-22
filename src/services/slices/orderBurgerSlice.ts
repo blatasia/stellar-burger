@@ -10,7 +10,7 @@ export interface TOrderBurgerState {
   name: string;
 }
 
-const initialState: TOrderBurgerState = {
+export const initialState: TOrderBurgerState = {
   order: null,
   requestStatus: 'idle',
   error: null,
